@@ -21,6 +21,8 @@ def push_message(title, content):
     wpush_apikey = os.getenv('wpush_apikey')
     url = 'https://api.wpush.cn/api/v1/send'
     channel = os.getenv("channel", "wechat")
+    if channel not in ["wechat", "sms", "mail", "feishu", "dingtalk", "webhook", "wechat_work"]:
+        channel = "wechat"
 
     params = {'apikey': wpush_apikey, 'title': title, 'content': content, 'channel': channel}
     response = requests.post(url, data=params)
@@ -38,6 +40,10 @@ def main():
         print('请设置alapi_token和wpush_apikey环境变量！')
         return
     send_type = os.getenv("type", "image")
+
+    if send_type not in ["image", "text"]:
+        send_type = "image"
+
     news_data = get_news()
     if news_data:
         date = news_data.get('date')
