@@ -1,5 +1,6 @@
 name: 每日早报定时推送
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 8 * * *" # 每天早上8点推送
 jobs:
